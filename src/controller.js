@@ -10,7 +10,10 @@ export class Controller extends MetricsPanelCtrl {
 
     constructor($scope, $injector) {
         super($scope, $injector);
-
+        var demos = [];
+        for (let key in echarts_demos) {
+            demos.push(key);
+        }
         var panelDefaults = {
             IS_UCD: false,
             url: '',
@@ -18,17 +21,8 @@ export class Controller extends MetricsPanelCtrl {
             upInterval: 60000,
             format: 'Year',
             demo: "Line",
-            demos: echarts_demos,
-            option: {}
+            demos: demos,
         };
-
-        panelDefaults.setOption = {
-            series: []
-        };
-        panelDefaults.spareOption = {
-            pieType: "Pie"
-        };
-
         _.defaults(this.panel, panelDefaults);
 
         this.events.on('data-received', this.onDataReceived.bind(this));
@@ -42,36 +36,6 @@ export class Controller extends MetricsPanelCtrl {
 
 
     onDataReceived(dataList) {
-        this.seriesList = { dataList: dataList, seriesOp: [] };
-
-        if (this.panel.spareOption.pieType == "Doughnut") {
-            this.seriesList.seriesOp.push({
-                type: "pie",
-                radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, data: []
-            });
-        } else {
-            this.seriesList.seriesOp.push({ type: "pie", data: [] });
-
-        }
-
-
-        for (var i in dataList[0].datapoints) {
-            this.seriesList.seriesOp[0].data.push({ value: dataList[0].datapoints[i][0], name: dataList[0].datapoints[i][1] });
-        }
         this.refreshed = true;
         this.render();
         this.refreshed = false;
@@ -89,13 +53,11 @@ export class Controller extends MetricsPanelCtrl {
 
     refreshData() {
         let _this = this, xmlhttp;
-
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
         } else {
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-
         let data = [];
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -103,69 +65,43 @@ export class Controller extends MetricsPanelCtrl {
                 _this.onDataReceived();
             }
         };
-
         if (this.panel.IS_UCD) {
             xmlhttp.open(_this.panel.method, _this.panel.url, true);
             xmlhttp.send();
         } else {
             xmlhttp = null;
         }
-
         this.$timeout(() => { this.refreshData(); }, _this.panel.upInterval);
     }
 
     link(scope, elem, attrs, ctrl) {
         const $panelContainer = elem.find('.echarts_container')[0];
-
-
         ctrl.refreshed = true;
-
         function setHeight() {
-
             let height = ctrl.height || ctrl.panel.height;
             if (_.isString(height)) {
                 height = parseInt(height.replace('px', ''), 10);
             }
-
             height += 0;
-
             $panelContainer.style.height = height + 'px';
         }
-
         setHeight();
-
         let myChart = echarts.init($panelContainer, 'dark');
-
         setTimeout(function () {
             myChart.resize();
         }, 1000);
-
-
-
-
-
-
         function render() {
             if (!myChart) {
                 return;
             }
             setHeight();
             myChart.resize();
-
             if (ctrl.refreshed) {
                 myChart.clear();
-
-                let option = ctrl.panel.setOption;
-
-                if (ctrl.seriesList !== undefined) {
-                    option.series = ctrl.seriesList.seriesOp;
-                } else {
-                    option.series = [];
-                }
-                myChart.setOption(ctrl.panel.option);
+                let option = echarts_demos[ctrl.panel.demo]();
+                myChart.setOption(option, true);
             }
         }
-
         this.events.on('render', function () {
             render();
             ctrl.renderingCompleted();
