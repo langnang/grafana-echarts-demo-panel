@@ -1,9 +1,9 @@
-import {Controller} from './controller';
+import { Controller } from './controller';
 import { loadPluginCss } from 'app/plugins/sdk';
 
 loadPluginCss({
-  dark: 'plugins/empty-panel/css/grouped.dark.css',
-  light: 'plugins/empty-panel/css/grouped.light.css',
+  dark: 'plugins/echarts-demo-panel/css/grouped.dark.css',
+  light: 'plugins/echarts-demo-panel/css/grouped.light.css',
 });
 
 export {

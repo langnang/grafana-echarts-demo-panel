@@ -80,7 +80,7 @@ export class Controller extends MetricsPanelCtrl {
     }
 
     onInitEditMode() {
-        this.addEditorTab('Option', 'public/plugins/empty-panel/partials/options.html', 2);
+        this.addEditorTab('Option', 'public/plugins/echarts-demo-panel/partials/options.html', 2);
     }
 
 

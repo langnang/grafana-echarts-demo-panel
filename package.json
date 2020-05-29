@@ -1,7 +1,7 @@
 {
-    "name": "empty-panel",
-    "version": "1.0.0",
-    "description": "empty panel for grafana",
+    "name": "grafana-echarts-demo-panel",
+    "version": "2.0.0",
+    "description": "a demo panel by echarts for grafana",
     "main": "src/module.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,6 +11,11 @@
     },
     "author": "Advantech",
     "license": "ISC",
+    "dependencies": {
+        "echarts": "^3.6.1",
+        "echarts-liquidfill": "^1.0.5",
+        "echarts-wordcloud": "^1.0.3"
+    },
     "devDependencies": {
         "babel": "~6.5.1",
         "babel-cli": "^6.18.0",
@@ -36,10 +41,5 @@
         "grunt-systemjs-builder": "^0.2.5",
         "load-grunt-tasks": "~3.2.0",
         "lodash": "^4.17.2"
-    },
-    "dependencies": {
-        "echarts": "^3.6.1",
-        "echarts-liquidfill": "^1.0.5",
-        "echarts-wordcloud": "^1.0.3"
     }
 }

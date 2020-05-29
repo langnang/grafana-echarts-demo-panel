@@ -1,11 +1,11 @@
 {
     "type": "panel",
-    "name": "Empty Panel",
-    "id": "empty-panel",
+    "name": "Demo Echarts",
+    "id": "echarts-demo-panel",
     "info": {
-        "description": "empty panel for grafana",
+        "description": "a demo panel by echarts for grafana",
         "author": {
-            "name": "Advantech",
+            "name": "Langnang",
             "url": "http://grafana.com"
         },
         "keywords": [
@@ -17,8 +17,8 @@
         },
         "links": [],
         "screenshots": [],
-        "version": "1.0.0",
-        "updated": "2018-09-03"
+        "version": "2.0.0",
+        "updated": "2020-05-29"
     },
     "dependencies": {
         "grafanaVersion": "6.5.2",
