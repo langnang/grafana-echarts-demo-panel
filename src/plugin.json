@@ -17,11 +17,11 @@
         },
         "links": [],
         "screenshots": [],
-        "version": "01.0.0",
+        "version": "1.0.0",
         "updated": "2018-09-03"
     },
     "dependencies": {
-        "grafanaVersion": "5.0",
+        "grafanaVersion": "6.5.2",
         "plugins": []
     }
 }
