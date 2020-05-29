@@ -9,7 +9,7 @@
         "build": "grunt",
         "watch": "grunt watch"
     },
-    "author": "Advantech",
+    "author": "Langnang",
     "license": "ISC",
     "dependencies": {
         "echarts": "^3.6.1",
