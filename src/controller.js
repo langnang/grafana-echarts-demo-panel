@@ -2,6 +2,7 @@ import { MetricsPanelCtrl } from 'app/plugins/sdk';
 import _ from 'lodash';
 import kbn from 'app/core/utils/kbn';
 import echarts from './libs/echarts.min';
+import * as echarts_demos from './demos';
 import './libs/dark';
 import './style.css!';
 
@@ -15,9 +16,11 @@ export class Controller extends MetricsPanelCtrl {
             url: '',
             method: 'POST',
             upInterval: 60000,
-            format: 'Year'
+            format: 'Year',
+            demo: "Line",
+            demos: echarts_demos,
+            option: {}
         };
-
 
         panelDefaults.setOption = {
             series: []
@@ -159,21 +162,7 @@ export class Controller extends MetricsPanelCtrl {
                 } else {
                     option.series = [];
                 }
-
-                // myChart.setOption(option);
-                myChart.setOption({
-                    xAxis: {
-                        type: 'category',
-                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        data: [820, 932, 901, 934, 1290, 1330, 1320],
-                        type: 'line'
-                    }]
-                });
+                myChart.setOption(ctrl.panel.option);
             }
         }
 
